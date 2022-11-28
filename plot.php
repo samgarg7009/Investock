@@ -26,17 +26,18 @@ var chart = new CanvasJS.Chart("chartContainer", {
 });
  
 function addData(data) {
-	var dps = data.price_usd;
-	for (var i = 0; i < dps.length; i++) {
+	var clpr;
+    var trdate;
+	for (var i = 0; i < data.length; i++) {
 		dataPoints.push({
-			x: new Date(dps[i][0]),
-			y: dps[i][1]
+			x: data[i][0],
+			y: dps[i][2]
 		});
 	}
 	chart.render();
 }
  
-$.getJSON("https://canvasjs.com/data/gallery/php/bitcoin-price.json", addData);
+$.getJSON("http://54.188.231.51:5000/Stock_Price_Time_Series_Weekly/?ticker=ABB.BSE&start_date=2022-10-01&end_date=2022-10-10", addData);
  
 }
 </script>

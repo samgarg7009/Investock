@@ -8,75 +8,89 @@ if (isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
 <html>
 <head>
 	<title>HOME</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
-</head>
-<body>
-     <p>
-          stockname: <input id="stockName" type="text" value="  " onchange="changeHandler()"></input>
-          <button id="submit"> submit</button> 
-     </p>
-     <script>
-          var input;
-          var url;
-          var button = d=select('#submit');
-          button.mousePressed(getInfo);
-          input = select('#stockName');
-          function getInfo(){
-               url = api + input.value();
+	<link rel="stylesheet" href="style.css" type="text/css">
+     <style>
+          body {
+               background: #263060;
+               display: flex;
+               align-items: center;
+               height: 100vh;
+               flex-direction: column;
           }
-     </script>    
-     <h1>Hello, 
-<?php
-//forcast
-$api_ = 'http://54.188.231.51:5000/Get_Forecast/?ticker=';
+          header {
+               display: flex;
+               top: 0;
+               justify-content: space-between;
+               align-items: center;
+               background-color: #dca4f3;
+               padding: 0 4.8rem;
+          }
 
-$json_data = file_get_contents($url);
+          .proname {
+               height: 2.2rem;
+          }
 
-$response_data = json_decode($json_data);
-//$user_data = $response_data->data;
+          .main_nav_list {
+               list-style: none;
+               display: flex;
+               align-items: center;
+               gap: 3.2rem;
+          }
+          header nav ul li a {
+               display: inline-block;
+               text-decoration: none;
+               color: #333;
+               font-size: 1.8rem;
+               font-weight: 700;
+               transition: all 0.3s;
+          }
+          nav {
+               display:block;
+          }
+          li {
+               display: list-item;
+          }
+</style>
+</head>
 
-$user_data = array_slice($response_data, 0, 20,TRUE);
-?>
+<body>
+<header class="header">
+     <h1 class="proname">Investock </h1>
+     <nav class="main_nav">
+          <ul class="main_nav_list">
+               <li>
+                   <a class="main_nav_link" href="predict.php">Predict Future</a> 
+               </li>
+               <li>
+                    <a class="main_nav_link" href="daily_price.php">Daily Report</a>
+               </li>
+               <li>
+                    <a class="main_nav_link" href="week_price.php">Weekly Report</a>
+               </li>
+               <li>
+                   <a class="main_nav_link" href="risk.php">Are u in risk?</a> 
+               </li>
+               <li>
+                    <a class="main_nav_link" href="logout.php">Logout</a>
+               </li>
+          </ul>
+     </nav>
+</header>
 
-<table>
-<?php
-
-foreach ($user_data as $user) {   
-     ?>
-     <tr>
-          <td>
-               <?php
-                    echo $user->forecast_date;
-               ?>
-          </td>
-     </tr>
-     <tr>
-          <td>
-               <?php
-                    echo $user->forecast_value;
-               ?>
-          </td>
-     </tr>
-     <tr>
-          <td>
-               <?php
-                    echo $user->forecast_ticker;
-               ?>
-          </td>
-     </tr>
-     <?php
-	
-}
-
-?>
-</table>
-
-</h1>
-     <a href="logout.php">Logout</a>
+     <!-- <script>
+          var value = "";
+          
+          function changeHandler(e){
+               value = e.target.value
+          }
+          
+     </script> -->     
 </body>
 </html>
 
 <?php 
+
+
 }else{
      header("Location: index.php");
      exit();
